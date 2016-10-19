@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
 gem 'bootstrap-sass'
-gem 'bootstrap-form'
+gem 'bootstrap_form'
 gem 'pg'
+gem 'devise'
 group :development do
   gem 'rspec-rails'
   gem 'capybara'
-  gem 'devise'
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
