@@ -5,6 +5,7 @@ gem 'bootstrap-form'
 gem 'pg'
 group :development do
   gem 'rspec-rails'
+  gem 'capybara'
   gem 'devise'
 end
 
