@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-6">
+        <h1>Listing all projects</h1>
+        <div class="pad-mystyle">
+        
+        <%= link_to "New Project", new_project_path, class: "btn btn-default btn-lg btn-space " , id:"new-project-btn" %>
+     <hr/>
+        
+        <%if @projects.any?%>
+                <% @projects.persisted.each do |project| %>
+               
+                    <div class="well well-lg ">
+                        <div class="project-title">
+                            <%= link_to project.name , project_path(project) %>
+                        </div>
+                        <div class="project-description">
+                            <%= truncate(project.description,length: 500) %>
+                        </div>
+                        <div class="owner">
+                            <% if project.user%>
+                                <i><small>Owner: <%= project.user.email %> </small></i>
+                            <%end%>
+                        </div>
+                    </div>
+                
+                <% end %>
+        <%else%>
+            <div class="alert alert-danger text-center"> <b>No Projects</b> </div>
+        <%end%>
+        </div>
+    </div>
+</div>
