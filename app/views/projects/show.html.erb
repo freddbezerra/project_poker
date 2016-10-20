@@ -24,21 +24,22 @@
                 </article>
             </div>
             <div class="col-md-4 text-center">
-                 <a class="btn btn-default" href="<%=list_stories_path(@project.id)%>" >Stories <span class="badge">4</span></a>
+                 <a class="btn btn-default" href="<%=list_stories_path(@project.id)%>" >Stories <span class="badge"><%=@project.stories.count%></span></a>
                  <a class="btn btn-success" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Add Story <span class="glyphicon glyphicon-plus"></span></a>
             </div>
         </div>
-        <!--<div class="collapse" id="collapseExample">-->
-                        <!--<div class="well well-lg">-->
+        <div class="collapse" id="collapseExample">
+                        <div class="well well-lg">
                             <div class="row">
                                   <%= bootstrap_form_for([@project,@story]) do |f| %>
-                                     <%= f.text_area :description,label:"Description" %>
-                                     <%= f.submit "Save"  , class:"btn btn-primary btn-block btn-lg btn-space"%>
+                                     <%= f.text_area  :description,label:"Description",id:"Description" %>
+                                     
+                                     <%= f.submit "Save"  , class:"btn btn-primary btn-block btn-lg btn-space",id:"Save"%>
                                   <%end%>
                             </div>
-                        <!--</div>-->
+                        </div>
                     </div>
-        <!--</div>-->
+        </div>
     <div>
         <%= link_to "Edit" , edit_project_path(@project), class: "btn btn-primary btn-lg btn-space" %>           
         <%= link_to "Delete" , project_path(@project) , method: :delete , data: {confirm: "Are you sure?"} , class: "btn btn-danger btn-lg btn-space" %>

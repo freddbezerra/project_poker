@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :projects do
       resources :stories , except: [:new ,:list]
   end
-  get 'list/stories/:id'  , to: 'stories#list', as: 'list/stories'
+  get 'list/stories/:project_id'  , to: 'stories#list', as: 'list/stories'
   
 
   # The priority is based upon order of creation: first created -> highest priority.

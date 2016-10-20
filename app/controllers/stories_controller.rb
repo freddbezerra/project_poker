@@ -1,16 +1,18 @@
 class StoriesController < ApplicationController
+    
     before_action :set_project
     
     def list
-        @stories = Story.where(:project_id ,project_id)
+      @stories = Story.where(project_id: @project.id)
     end
   
+    def new
+       
+    end
+    
     def create
         @story = @project.stories.build(story_params)
         @story.user = current_user
-    end
-    
-    def save
         if @story.save
             flash[:success] = "story was succesfull added to a project"
         else
