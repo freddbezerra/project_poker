@@ -1,9 +1,20 @@
 class StoriesController < ApplicationController
     
     before_action :set_project
+    before_action :authenticate_user!
     
     def list
-      @stories = Story.where(project_id: @project.id)
+        if @project.class != NilClass
+            @stories = Story.where(project_id: @project.id)
+          
+            if @stories.count == 0
+              flash.now[:danger] = "No stories yet"
+              redirect_to @project
+            end
+        else
+            redirect_to new_project_path
+        end  
+      
     end
   
     def new
@@ -14,9 +25,9 @@ class StoriesController < ApplicationController
         @story = @project.stories.build(story_params)
         @story.user = current_user
         if @story.save
-            flash[:success] = "story was succesfull added to a project"
+            flash.now[:success] = "story was succesfull added to a project"
         else
-            flash[:danger]  = "story was not added to a project"
+            flash.now[:danger]  = "story was not added to a project"
         end
         redirect_to project_path @project
     end
