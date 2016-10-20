@@ -16,7 +16,7 @@ RSpec.feature "Create project" do
         fill_in "Name" , with:"Nome do projeto"
         fill_in "Description" , with: "Descrição do projeto"
         
-        click_button "Create Project"
+        click_button "Save Project"
         
         expect(page).to have_content("Project has been succesfully created.")
     end
@@ -32,7 +32,7 @@ RSpec.feature "Create project" do
         fill_in "Name" , with:""
         fill_in "Description" , with: "Descrição do projeto"
         
-        click_button "Create Project"
+        click_button "Save Project"
         
         expect(page).to have_content("Project has not been created.")
     end

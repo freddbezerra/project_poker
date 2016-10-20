@@ -24,6 +24,21 @@ class ProjectsController < ApplicationController
       end
   end
   
+  def edit
+  
+  end
+  
+  def update
+    if @project.update(project_params)
+    flash[:success] = "Project has been succesfully updated."
+      redirect_to project_path @project
+    else
+      flash.now[:danger] = "Project has not been  updated."
+      render :edit
+    end
+    
+  end
+  
   def create
     @project = Project.new(project_params)
     @project.user = current_user
