@@ -1,6 +1,9 @@
 class Project < ActiveRecord::Base
   belongs_to :user
-  validates_presence_of :name
+  has_many :stories ,dependent: :destroy
+  
+  validates_presence_of :name , :description
+  
   
   def self.persisted
     where.not(id: nil)

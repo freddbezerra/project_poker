@@ -3,17 +3,20 @@ class ProjectsController < ApplicationController
   before_action :set_project, only:[:show,:edit,:update,:destroy]
   before_action :authenticate_user! ,except:[:index]
 
+  def show
+   @story = @project.stories.build
+  end
   
   def new
     @project = Project.new
+    
   end
   def index
     @projects = Project.all
   end
   
-  def show
-   
-  end
+ 
+  
   def destroy
       if @project.destroy
         flash[:success] = "Project has been succesfully deleted."

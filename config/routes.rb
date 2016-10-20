@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
   
-  devise_for :users
-  get 'project/create'
-
+  
   root 'home#index'
-  resources :projects
+  devise_for :users
+  
+  resources :projects do
+      resources :stories , except: [:new ,:list]
+  end
+  get 'list/stories/:id'  , to: 'stories#list', as: 'list/stories'
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
