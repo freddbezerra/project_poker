@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   
   before_action :set_project, only:[:show,:edit,:update,:destroy]
-  before_action :authenticate_user! 
+  before_action :authenticate_user! ,except:[:index]
 
   
   def new
@@ -32,8 +32,8 @@ class ProjectsController < ApplicationController
       flash[:success] = "Project has been succesfully created."
       redirect_to project_path @project
     else
-      flash[:danger] = "Project has not been created successfully"
-      redirect_to :new
+      flash[:danger] = "Project has not been created."
+      redirect_to new_project_path
     end
   end
   
