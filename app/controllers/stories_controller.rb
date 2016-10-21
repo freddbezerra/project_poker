@@ -1,43 +1,48 @@
 class StoriesController < ApplicationController
     
-    before_action :set_project
-    before_action :authenticate_user!
-    
-    def list
-        if @project.class != NilClass
-            @stories = Story.where(project_id: @project.id)
-          
-            if @stories.count == 0
-              flash.now[:danger] = "No stories yet"
-              redirect_to @project
-            end
-        else
-            redirect_to new_project_path
-        end  
-      
+  before_action :set_project , except: :destroy
+  
+  def list
+    @stories = Story.where(project_id: @project.id)
+  end
+  
+  def create
+    unless current_user
+      flash[:danger] = "Please sign in or sign up first"
+      redirect_to new_user_session_path
+    else
+      @story = @project.stories.build(story_params)
+      @story.user = current_user
+
+      if @story.save
+        flash[:success] = "story has been created"
+      else
+        flash.now[:danger] = "story has not been created"
+      end
+      redirect_to project_path(@project)
+    end
+  end
+  
+    def destroy
+      @project = Project.find(params[:project_id])
+      @story = @project.stories.find(params[:id])
+      if @story.destroy
+        flash[:success] = "Story has been succesfully deleted."
+        redirect_to list_stories_path(@project)
+      else
+        flash[:danger] = "Story has not been deleted"
+        redirect_to projects_path(@project)
+      end
     end
   
-    def new
-       
-    end
-    
-    def create
-        @story = @project.stories.build(story_params)
-        @story.user = current_user
-        if @story.save
-            flash.now[:success] = "story was succesfull added to a project"
-        else
-            flash.now[:danger]  = "story was not added to a project"
-        end
-        redirect_to project_path @project
-    end
-    
-    private
-        def story_params
-            params.require(:story).permit(:description)
-        end
-        
-        def set_project
-            @project = Project.find(params[:project_id])
-        end
+
+  private
+  def story_params
+    params.require(:story).permit(:description ,:project_id,:id )
+  end
+
+  def set_project
+    @project = Project.find(params[:project_id])
+  end
 end
+        

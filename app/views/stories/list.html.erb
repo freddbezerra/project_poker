@@ -3,26 +3,30 @@
         <h1>Listing all storiess</h1>
         <div class="pad-mystyle">
         
-        <%= link_to "New stories", project_path(@stories.last.project_id), class: "btn btn-default btn-lg btn-space " , id:"new-stories-btn" %>
+        <%= link_to "New stories", project_path(@project), class: "btn btn-default btn-lg btn-space " , id:"new-stories-btn" %>
      <hr/>
         
         <%if @stories.any?%>
                 <% @stories.persisted.each do |story| %>
                
                     <div class="well well-lg ">
-                        <div class="stories-title">
-                            <%= story.id %>
+                        <div class="row">
+                            <div class="stories-title">
+                                <%= story.id %>
+                            </div>
+                            <div class="stories-description">
+                                <%= truncate(story.description,length: 500) %>
+                            </div><!--
+                            <div class="owner">
+                                <% if story.project.user%>
+                                    <i class="pull-right"><small>Owner: <%= story.user.email %> </small></i>
+                                <%end%>
+                            </div>-->
+                            <div class="pull-right">
+                                <%= link_to "Delete" ,project_story_path(@project,story) , class:"btn btn-danger",method: :delete ,data: {confirm: "Are you sure?"}%>
+                            </div>
                         </div>
-                        <div class="stories-description">
-                            <%= truncate(story.description,length: 500) %>
-                        </div>
-                        <div class="owner">
-                            <% if story.project.user%>
-                                <i class="pull-right"><small>Owner: <%= story.user.email %> </small></i>
-                            <%end%>
-                        </div>
-                    </div>
-                
+                    </div> 
                 <% end %>
         <%else%>
             <div class="alert alert-danger text-center"> <b>No stories to show</b> </div>

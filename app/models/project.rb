@@ -3,6 +3,7 @@ class Project < ActiveRecord::Base
   has_many :stories ,dependent: :destroy
   
   validates_presence_of :name , :description
+  accepts_nested_attributes_for :stories, allow_destroy: true
   
   
   def self.persisted
